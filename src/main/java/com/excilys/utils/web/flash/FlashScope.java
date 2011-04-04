@@ -15,8 +15,11 @@
  */
 package com.excilys.utils.web.flash;
 
-import java.util.HashMap;
+import java.lang.reflect.Constructor;
 import java.util.Map;
+
+import com.excilys.utils.web.flash.strategy.BuiltInFlashScopeStrategies;
+import com.excilys.utils.web.flash.strategy.FlashScopeStrategy;
 
 /**
  * Stores the current FlashScope in a ThreadLocal so that it can be accessed
@@ -56,26 +59,53 @@ public class FlashScope {
 		return new Binder(name);
 	}
 
-	// TODO handle InheritableThreadLocal
-	private static final ThreadLocal<Map<String, Object>> HOLDER = new ThreadLocal<Map<String, Object>>();
+	public static final String SYSTEM_PROPERTY = "excilys.flash.strategy";
 
-	static Map<String, Object> getFlash() {
+	private static String strategyName = System.getProperty(SYSTEM_PROPERTY);
 
-		Map<String, Object> flash = HOLDER.get();
-		if (flash == null) {
-			flash = new HashMap<String, Object>();
-			HOLDER.set(flash);
+	private static FlashScopeStrategy strategy;
+
+	static {
+		initialize();
+	}
+
+	/**
+	 * Try to determine a strategy depending on the name system property
+	 */
+	private static void initialize() {
+		if ((strategyName == null) || "".equals(strategyName)) {
+			// Set default
+			strategy = BuiltInFlashScopeStrategies.MODE_THREADLOCAL;
+
+		} else {
+			strategy = BuiltInFlashScopeStrategies.getBuiltIn(strategyName);
 		}
 
-		return flash;
+		if (strategy == null) {
+			// Try to load a custom strategy
+			try {
+				Class<?> clazz = Class.forName(strategyName);
+				Constructor<?> customStrategy = clazz.getConstructor();
+				strategy = FlashScopeStrategy.class.cast(customStrategy.newInstance());
+			} catch (Exception ex) {
+				throw new ExceptionInInitializerError(ex);
+			}
+		}
+
+		if (strategy == null) {
+			throw new ExceptionInInitializerError("Impossible to find a strategy for " + strategyName);
+		}
+	}
+
+	static Map<String, Object> getFlash() {
+		return strategy.getFlash();
 	}
 
 	static void clear() {
-		HOLDER.set(null);
+		strategy.clear();
 	}
 
 	private static void setFlashAttribute(String name, Object value) {
 		getFlash().put(name, value);
 	}
-
 }
