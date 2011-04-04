@@ -19,9 +19,7 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import javax.servlet.Filter;
 import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -35,15 +33,12 @@ import javax.servlet.http.HttpSession;
  * 
  * @author <a href="mailto:slandelle@excilys.com">Stephane LANDELLE</a>
  */
-public class FlashScopeFilter implements Filter {
+public class FlashScopeFilter extends AbstractFilter {
 
 	/**
 	 * The key to store the Flash in HTTP Session
 	 */
 	private static final String FLASH_SCOPE_KEY = "com.excilys.utils.web.flash";
-
-	public void init(FilterConfig filterConfig) throws ServletException {
-	}
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 
@@ -85,8 +80,5 @@ public class FlashScopeFilter implements Filter {
 		HttpSession session = HttpServletRequest.class.cast(request).getSession();
 		session.setAttribute(FLASH_SCOPE_KEY, FlashScopeHandler.getFlash());
 		FlashScopeHandler.clear();
-	}
-
-	public void destroy() {
 	}
 }
