@@ -74,7 +74,7 @@ public class FlashScopeHandler {
 		HOLDER.set(null);
 	}
 
-	public static void setFlashAttribute(String name, Object value) {
+	private static void setFlashAttribute(String name, Object value) {
 		getFlash().put(name, value);
 	}
 
