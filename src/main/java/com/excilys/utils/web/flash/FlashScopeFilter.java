@@ -78,7 +78,7 @@ public class FlashScopeFilter extends AbstractFilter {
 	 */
 	private void storeCurrentFlashInSession(ServletRequest request) {
 		HttpSession session = HttpServletRequest.class.cast(request).getSession();
-		session.setAttribute(FLASH_SCOPE_KEY, FlashScopeHandler.getFlash());
-		FlashScopeHandler.clear();
+		session.setAttribute(FLASH_SCOPE_KEY, FlashScope.getFlash());
+		FlashScope.clear();
 	}
 }

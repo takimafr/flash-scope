@@ -25,7 +25,7 @@ import java.util.Map;
  * @author <a href="mailto:slandelle@excilys.com">Stephane LANDELLE</a>
  */
 // NotThreadSafe
-public class FlashScopeHandler {
+public class FlashScope {
 
 	// TODO handle InheritableThreadLocal
 	private static final ThreadLocal<Map<String, Object>> HOLDER = new ThreadLocal<Map<String, Object>>();
