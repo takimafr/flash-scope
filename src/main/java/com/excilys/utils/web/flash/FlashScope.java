@@ -24,7 +24,6 @@ import java.util.Map;
  * 
  * @author <a href="mailto:slandelle@excilys.com">Stephane LANDELLE</a>
  */
-// NotThreadSafe
 public class FlashScope {
 
 	public static final class Binder {
@@ -36,13 +35,14 @@ public class FlashScope {
 		}
 
 		/**
-		 * @param value The value to be set for the associated attribute name
+		 * @param value
+		 *            The value to be set for the associated attribute name
 		 */
 		public void to(Object value) {
 			setFlashAttribute(name, value);
 		}
 	}
-	
+
 	/**
 	 * Call this method to set flash attributes. The fluid API should be used
 	 * the following way : {@link FlashScopeHandler}.bind(name).to(value);
