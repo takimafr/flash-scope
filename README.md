@@ -1,11 +1,13 @@
-# flash-scope 1.0.0-SNAPSHOT
+# flash-scope 1.0.0
 
 ## What for?
 
 Simple Flash scope for Redirect-After-Post pattern.
 
-1 Declare the FlashScopeFilter in your web.xml and trap your pages
-2 use FlashScopeHandler.setFlashAttribute
+* Declare the FlashScopeFilter in your web.xml and trap your pages
+* Use FlashScope.bind("attributeName").value(attributeValue);
+
+For further details, please have a look at the javadoc.
 
 ## Where are the binaries?
 

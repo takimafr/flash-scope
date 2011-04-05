@@ -22,8 +22,11 @@ import com.excilys.utils.web.flash.strategy.BuiltInFlashScopeStrategies;
 import com.excilys.utils.web.flash.strategy.FlashScopeStrategy;
 
 /**
- * Stores the current FlashScope in a ThreadLocal so that it can be accessed
- * without relying on the underliying HTTP storage.
+ * Stores the current FlashScope so that it can be accessed without relying on
+ * the underliying HTTP storage. The underlying storage strategy can be
+ * configured with the System property "excilys.flash.strategy". Build in values
+ * are MODE_THREADLOCAL (default) and MODE_INHERITABLETHREADLOCAL. One can also
+ * configure a custom strategy by passing its Class name.
  * 
  * @author <a href="mailto:slandelle@excilys.com">Stephane LANDELLE</a>
  */
