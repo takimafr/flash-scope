@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2011 Excilys (www.excilys.com)
+ * Copyright 2010-2011 eBusiness Information, Groupe Excilys (www.excilys.com)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -13,13 +13,13 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.excilys.utils.web.flash;
+package com.excilys.ebi.utils.web.flash;
 
 import java.lang.reflect.Constructor;
 import java.util.Map;
 
-import com.excilys.utils.web.flash.strategy.BuiltInFlashScopeStrategies;
-import com.excilys.utils.web.flash.strategy.FlashScopeStrategy;
+import com.excilys.ebi.utils.web.flash.strategy.BuiltInFlashScopeStrategies;
+import com.excilys.ebi.utils.web.flash.strategy.FlashScopeStrategy;
 
 /**
  * Stores the current FlashScope so that it can be accessed without relying on

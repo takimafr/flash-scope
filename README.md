@@ -18,6 +18,9 @@ You can find the binaries in our maven repository :
 	<dependency>
 		<groupId>com.excilys.utils</groupId>
 		<artifactId>flash-scope</artifactId>
-		<version>1.0.0</version>
+		<version>1.0.1</version>
 	</dependency>
 ```
+
+## Notice :
+Starting from 1.1.1, groupId and packages have been translated from com.excilys.utils to com.excilys.ebi.utils

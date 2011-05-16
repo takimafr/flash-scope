@@ -1,2 +1,2 @@
-Excilys Flash-Scope
-Copyright 2011 Excilys
+Simple Flash-Scope
+Copyright 2011 eBusiness Information, Groupe Excilys
