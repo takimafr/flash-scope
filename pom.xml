@@ -1,6 +1,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.excilys.utils</groupId>
+	<groupId>com.excilys.ebi.utils</groupId>
 	<artifactId>flash-scope</artifactId>
 	<version>1.0.2-SNAPSHOT</version>
 
@@ -28,8 +28,8 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.5</java.version>
-
 		<servlet-api.version>2.4</servlet-api.version>
+		<spring.version>3.0.5.RELEASE</spring.version>
 	</properties>
 
 	<dependencyManagement>
@@ -38,7 +38,12 @@
 				<groupId>javax.servlet</groupId>
 				<artifactId>servlet-api</artifactId>
 				<version>${servlet-api.version}</version>
-				<scope>provided</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-web</artifactId>
+				<version>${spring.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
@@ -48,6 +53,14 @@
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>servlet-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- optional -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<optional>true</optional>
 		</dependency>
 	</dependencies>
 

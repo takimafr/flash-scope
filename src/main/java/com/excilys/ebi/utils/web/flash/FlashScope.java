@@ -1,12 +1,12 @@
 /*
  * Copyright 2010-2011 eBusiness Information, Groupe Excilys (www.excilys.com)
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
  * the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
@@ -15,18 +15,14 @@
  */
 package com.excilys.ebi.utils.web.flash;
 
-import java.lang.reflect.Constructor;
 import java.util.Map;
-
-import com.excilys.ebi.utils.web.flash.strategy.BuiltInFlashScopeStrategies;
-import com.excilys.ebi.utils.web.flash.strategy.FlashScopeStrategy;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * Stores the current FlashScope so that it can be accessed without relying on
- * the underliying HTTP storage. The underlying storage strategy can be
- * configured with the System property "excilys.flash.strategy". Build in values
- * are MODE_THREADLOCAL (default) and MODE_INHERITABLETHREADLOCAL. One can also
- * configure a custom strategy by passing its Class name.
+ * the underlying HTTP storage. Build in values are MODE_THREADLOCAL (default)
+ * and MODE_INHERITABLETHREADLOCAL. One can also configure a custom strategy by
+ * passing its Class name.
  * 
  * @author <a href="mailto:slandelle@excilys.com">Stephane LANDELLE</a>
  */
@@ -62,53 +58,32 @@ public class FlashScope {
 		return new Binder(name);
 	}
 
-	public static final String SYSTEM_PROPERTY = "excilys.flash.strategy";
+	private static Storage storage;
 
-	private static String strategyName = System.getProperty(SYSTEM_PROPERTY);
+	private static final AtomicBoolean INITIALIZED = new AtomicBoolean(false);
 
-	private static FlashScopeStrategy strategy;
-
-	static {
-		initialize();
-	}
-
-	/**
-	 * Try to determine a strategy depending on the name system property
-	 */
-	private static void initialize() {
-		if ((strategyName == null) || "".equals(strategyName)) {
-			// Set default
-			strategy = BuiltInFlashScopeStrategies.MODE_THREADLOCAL;
-
+	static void initialize(Storage strtg) {
+		if (INITIALIZED.compareAndSet(false, true)) {
+			storage = strtg;
 		} else {
-			strategy = BuiltInFlashScopeStrategies.getBuiltIn(strategyName);
-		}
-
-		if (strategy == null) {
-			// Try to load a custom strategy
-			try {
-				Class<?> clazz = Class.forName(strategyName);
-				Constructor<?> customStrategy = clazz.getConstructor();
-				strategy = FlashScopeStrategy.class.cast(customStrategy.newInstance());
-			} catch (Exception ex) {
-				throw new ExceptionInInitializerError(ex);
-			}
-		}
-
-		if (strategy == null) {
-			throw new ExceptionInInitializerError("Impossible to find a strategy for " + strategyName);
+			throw new ExceptionInInitializerError("strategy has already been initialized");
 		}
 	}
 
 	static Map<String, Object> getFlash() {
-		return strategy.getFlash();
+		return storage.getFlash();
 	}
 
 	static void clear() {
-		strategy.clear();
+		storage.clear();
 	}
 
 	private static void setFlashAttribute(String name, Object value) {
-		getFlash().put(name, value);
+		storage.getFlash().put(name, value);
+	}
+
+	@SuppressWarnings("unchecked")
+	public static <T> T getFlashAttribute(String name) {
+		return (T) storage.getFlash().get(name);
 	}
 }
