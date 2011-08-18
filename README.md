@@ -1,10 +1,10 @@
-# flash-scope 1.0.0
+# flash-scope 1.0.2
 
 ## What for?
 
 Simple Flash scope for Redirect-After-Post pattern.
 
-* Declare the FlashScopeFilter in your web.xml and trap your pages
+* Declare the FlashFilter in your web.xml and trap your pages
 * Use FlashScope.bind("attributeName").value(attributeValue);
 
 For further details, please have a look at the javadoc.
@@ -16,9 +16,9 @@ You can find the binaries in our maven repository :
 
 ``` xml
 	<dependency>
-		<groupId>com.excilys.utils</groupId>
+		<groupId>com.excilys.ebi.utils</groupId>
 		<artifactId>flash-scope</artifactId>
-		<version>1.0.1</version>
+		<version>1.0.2</version>
 	</dependency>
 ```
 
