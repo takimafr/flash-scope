@@ -31,8 +31,10 @@ import com.excilys.ebi.utils.web.flash.Storage;
 /**
  * Filter in charge of synchronizing the flash scope and the HTTP session.
  * 
+ * @deprecated Use Spring 3.1 built in flash scope instead.
  * @author <a href="mailto:slandelle@excilys.com">Stephane LANDELLE</a>
  */
+@Deprecated
 public class SpringFlashFilter extends OncePerRequestFilter {
 
 	private Storage storage = BuiltInStorages.MODE_THREADLOCAL;
