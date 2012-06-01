@@ -31,7 +31,7 @@
 		<servlet-api.version>2.5</servlet-api.version>
 		<spring.version>3.1.1.RELEASE</spring.version>
 
-		<maven-compiler-plugin.version>2.3.2</maven-compiler-plugin.version>
+		<maven-compiler-plugin.version>2.4</maven-compiler-plugin.version>
 		<maven-licence-plugin.version>1.9.0</maven-licence-plugin.version>
 	</properties>
 
